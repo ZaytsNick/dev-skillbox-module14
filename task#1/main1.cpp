@@ -1,16 +1,17 @@
 #include <iostream>
 using namespace std;
+
 template <typename S>
-int sum[6][2](S a[][2], S b[][2])
+void sum(S a[6][2], S b[6][2], int devices[][2])
 {
-    int summ[6][2]
+
     for (int i = 0; i < 6; ++i)
     {
         for (int j = 0; j < 2; ++j)
         {
-            summ[i][j]=a[i][j]+b[i][j];
+            devices[i][j] = a[i][j] + b[i][j];
         }
-    }
+    };
 }
 
 template <typename T>
@@ -28,7 +29,7 @@ void write_array(T array[][2])
 int main()
 {
 
-    // int devices [6][2]={{4,4},{3,3},{3,3},{3,3},{3,3},{3,3}};
+    int devices[6][2];
     bool fork[6][2]{{1, 1}, {1, 1}, {1, 1}, {1, 1}, {1, 1}, {1, 1}};
     bool spoon[6][2]{{1, 1}, {1, 1}, {1, 1}, {1, 1}, {1, 1}, {1, 1}};
     bool knife[6][2]{{1, 1}, {1, 1}, {1, 1}, {1, 1}, {1, 1}, {1, 1}};
@@ -60,7 +61,8 @@ int main()
     small_spoon[2][1] = true;
     // За ненадобностью официант забрал у VIP-гостя одну десертную тарелку, ведь есть десерт ложкой, которая уже побывала уже в супе, неприлично.
     dishes[0][1]--;
-     int devices[6][2]=sum((sum((int)fork,(int)spoon)),(sum((int)nife,(int)small_spoon)));
+    sum(fork,spoon,devices);
+    sum(knife,small_spoon,devices);
     cout << "No more accidents\nCutlery for visitors:\n";
     write_array(devices);
     cout << "\nPlates of cutlery for visitors:\n";
