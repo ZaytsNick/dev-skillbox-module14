@@ -32,7 +32,30 @@ void status_pimply(bool array[][12])
         cout << "\n";
     }
 }
-void enter_push(bool array[][12])
+void push(bool arr[][12], int origin_p, int origin_l, int end_p, int end_l)
+{
+    for (int i = 0; i < 12; ++i)
+    {
+        for (int j = 0; j < 12; ++j)
+        {
+            if ((j >= origin_p && j <= end_p) && (i >= origin_l && i <= end_l))
+                arr[i][j] = false;
+        }
+    }
+}
+bool checking_the_bump(bool arr[][12])
+{
+    for (int i = 0; i < 12; ++i)
+    {
+        for (int j = 0; j < 12; ++j)
+        {
+            if (arr[i][j])
+                return true;
+        }
+    }
+    return false;
+}
+void enter_push(bool arr[][12])
 {
     char g('0');
     int origin_pilar(-1), origin_line(-1), end_pilar(-1), end_line(-1);
@@ -43,31 +66,25 @@ void enter_push(bool array[][12])
         origin_line = g - 'A';
         origin_pilar -= 1;
     }
-    while ((end_pilar < 0 || origin_pilar > 11) || (end_line < 0 || end_line > 11))
+    while ((end_pilar < 0 || end_pilar > 11) || (end_line < 0 || end_line > 11))
     {
         cout << "Enter the coordinate at which to end:";
         cin >> g >> end_pilar;
         end_line = g - 'A';
         end_pilar -= 1;
     }
-     push(array, origin_pilar, origin_line, end_pilar, end_line);
+    push(arr, origin_pilar, origin_line, end_pilar, end_line);
 }
-void push(bool arr[][12], int origin_p, int origin_l, int end_p, int end_l)
-{
-    for (int i = 0; i < 12; ++i)
-    {
-        for (int j = 0; j < 12; ++j)
-        {
-            if ((i >= origin_p && i <= end_p) && (j >= origin_l && j <= end_l))
-                arr[i][j] = false;
-        }
-    }
-}
+
 int main()
 {
     bool pimply[12][12];
     pimply_initialization(pimply);
-    status_pimply(pimply);
-    enter_push(pimply);
-    // status_pimply(pimply);
+
+    while (checking_the_bump(pimply))
+    {
+        status_pimply(pimply);
+        enter_push(pimply);
+    }
+    cout<<"The bubble wrap is over";
 }
