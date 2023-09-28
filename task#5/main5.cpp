@@ -34,12 +34,11 @@ void status_pimply(bool array[][12])
 }
 void push(bool arr[][12], int origin_p, int origin_l, int end_p, int end_l)
 {
-    for (int i = 0; i < 12; ++i)
+    for (int i = origin_l; i <= end_l; ++i)
     {
-        for (int j = 0; j < 12; ++j)
+        for (int j = origin_p; j <= end_p; ++j)
         {
-            if ((j >= origin_p && j <= end_p) && (i >= origin_l && i <= end_l))
-                arr[i][j] = false;
+            arr[i][j] = false;
         }
     }
 }
@@ -86,5 +85,5 @@ int main()
         status_pimply(pimply);
         enter_push(pimply);
     }
-    cout<<"The bubble wrap is over";
+    cout << "The bubble wrap is over";
 }
