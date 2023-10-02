@@ -44,7 +44,7 @@ bool installation_warship(bool arr[][10], int origin_p, int origin_l, int end_p,
 }
 void enter_warship(bool arr[][10])
 {
-    for (int number_warhip = 7; number_warhip < 10;)
+    for (int number_warhip = 0; number_warhip < 10;)
     {
         char g('0');
         int origin_pilar(-1), origin_line(-1), end_pilar(-2), end_line(-2);
@@ -53,7 +53,7 @@ void enter_warship(bool arr[][10])
             status_field(arr);
             while ((origin_pilar < 0 || origin_pilar > 9) || (origin_line < 0 || origin_line > 9))
             {
-                cout << "Enter the coordinate from which to start popping bubbles:";
+                cout << "Enter the coordinate from which warship:";
                 cin >> g >> origin_pilar;
                 origin_line = g - 'A';
                 origin_pilar -= 1;
@@ -68,15 +68,27 @@ void enter_warship(bool arr[][10])
                     end_pilar -= 1;
                     if (number_warhip < 7 && ((abs(origin_line - end_line) == 1 - abs(origin_pilar - end_pilar) == 1) == 1))
                     {
-                        true;
+                        if (origin_line > end_line || origin_pilar > end_pilar)
+                        {
+                            swap(origin_line, end_line);
+                            swap(origin_pilar, end_pilar);
+                        }
                     }
-                    else if (number_warhip > 6 && number_warhip < 9 && ((abs(origin_line - end_line) == 2 - abs(origin_pilar - end_pilar) == 2) == 1))
+                    else if ((number_warhip > 6 && number_warhip < 9) && (abs((abs(origin_line - end_line) == 2) - (abs(origin_pilar - end_pilar) == 2)) == 1))
                     {
-                        true;
+                        if (origin_line > end_line || origin_pilar > end_pilar)
+                        {
+                            swap(origin_line, end_line);
+                            swap(origin_pilar, end_pilar);
+                        }
                     }
-                    else if (number_warhip == 9 && ((abs(origin_line - end_line) == 3 - abs(origin_pilar - end_pilar) == 3)) == 1)
+                    else if (number_warhip == 9 && (abs((abs(origin_line - end_line) == 3) - (abs(origin_pilar - end_pilar) == 3))) == 1)
                     {
-                        true;
+                        if (origin_line > end_line || origin_pilar > end_pilar)
+                        {
+                            swap(origin_line, end_line);
+                            swap(origin_pilar, end_pilar);
+                        }
                     }
                     else
                     {
@@ -92,7 +104,12 @@ void enter_warship(bool arr[][10])
             }
             if (installation_warship(arr, origin_pilar, origin_line, end_pilar, end_line))
             {
+
                 ++number_warhip;
+                if (number_warhip == 10)
+                {
+                    break;
+                }
                 origin_line = -1;
                 origin_pilar = -1;
                 end_line = -2;
@@ -106,14 +123,6 @@ void enter_warship(bool arr[][10])
                 end_pilar = -2;
             }
         }
-        // if (number_warhip > 3 && number_warhip < 7 && origin_line - end_line == 2 || origin_pilar - end_pilar == 2)
-        //     if (number_warhip > 7 && number_warhip < 9 && origin_line - end_line == 3 || origin_pilar - end_pilar == 3)
-        //         if (number_warhip == 9 && origin_line - end_line == 4 || origin_pilar - end_pilar == 4)
-
-        // &&
-        //                (!(number_warhip < 7 && origin_line - end_line == 2 || origin_pilar - end_pilar == 2) &&
-        //                 !(number_warhip > 7 && number_warhip < 9 && origin_line - end_line == 3 || origin_pilar - end_pilar == 3) &&
-        //                 !(number_warhip == 9 && origin_line - end_line == 4 || origin_pilar - end_pilar == 4))
     }
 }
 void cin_array(bool array[][10])
@@ -132,6 +141,6 @@ int main()
     cin_array(field_1);
     cin_array(field_2);
     enter_warship(field_1);
-    status_field(field_1);
-    status_field(field_2);
+    enter_warship(field_2);
+    
 }
