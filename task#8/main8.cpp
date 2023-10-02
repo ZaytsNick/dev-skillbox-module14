@@ -135,12 +135,71 @@ void cin_array(bool array[][10])
         }
     }
 }
+bool examination(bool field[][10])
+{
+    for (int i = 0; i < 10; ++i)
+    {
+        for (int j = 0; j < 10; ++j)
+        {
+            if (field[i][j] == 1)
+                return true;
+        }
+    }
+    return false;
+}
+bool attack(bool field[][10])
+{
+    bool move(true);
+    while (move)
+    {
+        char g('0');
+        int pilar(-1), line(-1);
+        while ((pilar < 0 || pilar > 9) || (line < 0 || line > 9))
+        {
+            cout << "Enter attack coordinates warship:";
+            cin >> g >> pilar;
+            line = g - 'A';
+            pilar -= 1;
+        }
+        if (field[line][pilar])
+        {
+            field[line][pilar] = false;
+        }
+        else
+        {
+            move = false;
+        }
+
+        if (!examination(field))
+        {
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    return false;
+}
 int main()
 {
-    bool field_1[10][10], field_2[10][10], player;
+    bool field_1[10][10], field_2[10][10];
     cin_array(field_1);
     cin_array(field_2);
     enter_warship(field_1);
     enter_warship(field_2);
-    
+    while (true)
+    {
+        cout << "Player #1\nYour warships:" << endl;
+        status_field(field_1);
+        if (attack(field_2))
+            cout << "Player #1 wins!";
+
+        cout << "Player #2\nYour warships:" << endl;
+        status_field(field_2);
+
+        if (attack(field_1))
+            cout << "Player #1 wins!";
+    }
 }
