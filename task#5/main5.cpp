@@ -38,9 +38,14 @@ void push(bool arr[][12], int origin_p, int origin_l, int end_p, int end_l)
     {
         for (int j = origin_p; j <= end_p; ++j)
         {
-            arr[i][j] = false;
+            if (arr[i][j])
+            {
+                arr[i][j] = false;
+                cout << "Pop!";
+            }
         }
     }
+    cout <<"\n"<< endl;
 }
 bool checking_the_bump(bool arr[][12])
 {
