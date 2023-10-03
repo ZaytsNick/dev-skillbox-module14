@@ -16,34 +16,35 @@ void conclusion_battlefield(char field[][3])
 }
 bool examination(char field[][3], char gamer_name, int i, int j)
 {
-    
+    int condition1(1), condition2(1), condition3(1), condition4(1);
+
     for (int k = 1; k < 3; ++k)
     {
-        int condition1(1), condition2(1), condition3(1),condition4(1);
         if (field[i][(j + k) % 3] == gamer_name)
         {
             condition1++;
             if (condition1 == 3)
                 return true;
         }
-        if (field[(i + k) % 3][j] == gamer_name)
+        else if (field[(i + k) % 3][j] == gamer_name)
         {
             condition2++;
             if (condition2 == 3)
                 return true;
         }
-        if ((((j + k) % 3 + (i + k) % 3) % 2 == 0) && field[(i + k) % 3][(j + k) % 3] == gamer_name)
+        else if ((((j + k) % 3 + (i + k) % 3) % 2 == 0) && field[(i + k) % 3][(j + k) % 3] == gamer_name)
         {
             condition3++;
             if (condition3 == 3)
                 return true;
         }
-        if (((abs((j - k)) % 3 + abs(i - k) % 3) % 2 == 0) && field[abs(i - k) % 3][abs(j - k) % 3] == gamer_name)
+        else if (((abs((j - k)) % 3 + abs(i - k) % 3) % 2 == 0) && field[abs(i - k) % 3][abs(j - k) % 3] == gamer_name)
         {
             condition4++;
             if (condition4 == 3)
                 return true;
         }
+        
     }
     return false;
 }
